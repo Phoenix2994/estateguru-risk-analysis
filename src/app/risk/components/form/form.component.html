@@ -1,0 +1,84 @@
+<div>
+  <mat-card id="form" class="primary-card">
+    <mat-card-header>
+      <mat-card-title>Find the risk class of your transaction in <strong>Estateguru</strong></mat-card-title>
+      <mat-card-subtitle>Fill in all the fields</mat-card-subtitle>
+    </mat-card-header>
+    <mat-card-content>
+      <mat-form-field appearance="fill">
+        <mat-label>Country</mat-label>
+        <mat-select [(value)]="selectedCountry">
+          <mat-option *ngFor="let country of countries" [value]="country.code">{{country.value}}</mat-option>
+        </mat-select>
+      </mat-form-field>
+      <mat-form-field appearance="fill">
+        <mat-label>Interest Rate</mat-label>
+        <input type="number" [(ngModel)]="interestRate" matInput>
+      </mat-form-field>
+      <mat-form-field appearance="fill">
+        <mat-label>Schedule</mat-label>
+        <mat-select [(value)]="selectedSchedule">
+          <mat-option *ngFor="let schedule of schedules" [value]="schedule.code">{{schedule.value}}</mat-option>
+        </mat-select>
+      </mat-form-field>
+      <mat-form-field appearance="fill">
+        <mat-label>LTV</mat-label>
+        <input type="number" [(ngModel)]="ltv" matInput>
+      </mat-form-field>
+      <br>
+      <mat-form-field appearance="fill">
+        <mat-label>Loan Type</mat-label>
+        <mat-select [(value)]="selectedLoanType">
+          <mat-option *ngFor="let loan of loans" [value]="loan.code">{{loan.value}}</mat-option>
+        </mat-select>
+      </mat-form-field>
+      <mat-form-field appearance="fill">
+        <mat-label>Collateral Type</mat-label>
+        <mat-select [(value)]="selectedCollateral">
+          <mat-option *ngFor="let col of collaterals" [value]="col.code">{{col.value}}</mat-option>
+        </mat-select>
+      </mat-form-field>
+      <mat-form-field appearance="fill">
+        <mat-label>Collateral Value</mat-label>
+        <input type="number" [(ngModel)]="colValue" matInput>
+      </mat-form-field>
+      <mat-form-field appearance="fill">
+        <mat-label>Loan Period</mat-label>
+        <input type="number" [(ngModel)]="period" matInput>
+      </mat-form-field>
+      <br>
+      <mat-form-field appearance="fill">
+        <mat-label>Suretyship</mat-label>
+        <mat-select [(value)]="selectedSurety">
+          <mat-option *ngFor="let sure of suretyship" [value]="sure.code">{{sure.value}}</mat-option>
+        </mat-select>
+      </mat-form-field>
+      <mat-form-field appearance="fill">
+        <mat-label>Stages Existence</mat-label>
+        <mat-select [(value)]="selectedStage">
+          <mat-option *ngFor="let stage of stages" [value]="stage.code">{{stage.value}}</mat-option>
+        </mat-select>
+      </mat-form-field>
+      <mat-form-field appearance="fill">
+        <mat-label>Refinancing</mat-label>
+        <mat-select [(value)]="selectedRef">
+          <mat-option *ngFor="let ref of refinancing" [value]="ref.code">{{ref.value}}</mat-option>
+        </mat-select> 
+      </mat-form-field>
+      <br>
+    </mat-card-content>
+    <mat-card-actions>
+      <button mat-button (click)="evaluateInfo()" class="btn" color="primary">SUBMIT</button>
+    </mat-card-actions>
+  </mat-card>
+  <mat-card id="form-error" class="error-card" *ngIf="flagError">
+    <mat-card-header>
+      <mat-card-title><strong>Error:</strong></mat-card-title>
+      <mat-card-subtitle *ngIf="flagFields">Fill in all the fields to submit</mat-card-subtitle>
+      <mat-card-subtitle *ngIf="flagRate">Interest Rate should be between 7 and 15</mat-card-subtitle>
+      <mat-card-subtitle *ngIf="flagPeriod">Loan Period should be between 1 and 24</mat-card-subtitle>
+      <mat-card-subtitle *ngIf="flagLtv">LTV should be between 10 and 75</mat-card-subtitle>
+      <mat-card-subtitle *ngIf="flagCol">Collateral Value must be greater than 0</mat-card-subtitle>
+    </mat-card-header>
+  </mat-card>
+</div>

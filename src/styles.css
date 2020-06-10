@@ -1,1 +1,38 @@
 /* You can add global styles to this file, and also import other style files */
+
+html, body {
+    height: 100%;
+}
+
+body {
+    margin: 0;
+    font-family: Roboto, "Helvetica Neue", sans-serif;
+    background-image: url('./assets/images/USA-wallpapers-hd8.jpg');
+    background-size: cover;}
+
+#dash .mat-card-header .mat-card-title, #form .mat-card-header .mat-card-title, #risk .mat-card-header .mat-card-title{
+    font-size: 30px
+}
+
+#dash .mat-card-subtitle, #form .mat-card-subtitle{
+    font-size: 20px
+}
+
+#dash .mat-card-content{
+    margin: 0 20px;
+}
+
+#dash .mat-card-actions, #form .mat-card-actions, #risk .mat-card-actions{
+    text-align:center;
+    margin:30px auto;
+}
+
+#form .mat-card-content{
+    margin: 20px auto;
+    display: table;
+}
+
+#form-error .mat-card-subtitle{
+    color: white;
+    font-size:18px;
+}
