@@ -4,7 +4,7 @@ import { Routes, RouterModule } from '@angular/router';
 const routes: Routes = [
   {
     path: 'risk',
-    loadChildren: `../risk/risk.module`
+    loadChildren: `../risk/risk.module#RiskModule`
   }
 ];
 
