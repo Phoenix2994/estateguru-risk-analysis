@@ -4,8 +4,7 @@ import { Routes, RouterModule } from '@angular/router';
 const routes: Routes = [
   {
     path: 'risk',
-    loadChildren: () => import('../risk/risk.module')
-      .then(m => m.RiskModule)
+    loadChildren: `../risk/risk.module`
   }
 ];
 
