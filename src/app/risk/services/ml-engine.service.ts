@@ -31,31 +31,31 @@ export class MlEngineService {
   catchRecordsFromFile(): any {
     const records = (recordsData as any).default;
 
-    this.rawRecords = [[], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], []]
+    this.rawRecords = [[], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], []]
     records.forEach(element => {
       this.rawRecords[0].push(element.estonia)
-      this.rawRecords[1].push(element.finland)
-      this.rawRecords[2].push(element.lithuania)
-      this.rawRecords[3].push(element.germany)
-      this.rawRecords[4].push(element.latvia)
-      this.rawRecords[5].push(element.spain)
-      this.rawRecords[6].push(element.interestRate)
-      this.rawRecords[7].push(element.fullBullet)
-      this.rawRecords[8].push(element.bullet)
-      this.rawRecords[9].push(element.annuity)
-      this.rawRecords[10].push(element.devLoan)
-      this.rawRecords[11].push(element.bussLoan)
-      this.rawRecords[12].push(element.bridgeLoan)
-      this.rawRecords[13].push(element.land)
-      this.rawRecords[14].push(element.residential)
-      this.rawRecords[15].push(element.commercial)
-      this.rawRecords[16].push(element.other)
-      this.rawRecords[17].push(typeof element.ltv == "string" ? +(element.ltv.replace(',','.')) : element.ltv)
-      this.rawRecords[18].push(element.period)
-      this.rawRecords[19].push(element.collateralValue)
-      this.rawRecords[20].push(element.stage)
-      this.rawRecords[21].push(element.suretyship) //mortgage fundedAmount portugal
-      this.rawRecords[22].push(element.ref)
+      //this.rawRecords[1].push(element.finland)
+      this.rawRecords[1].push(element.lithuania)
+      //this.rawRecords[3].push(element.germany)
+      this.rawRecords[2].push(element.latvia)
+      //this.rawRecords[5].push(element.spain)
+      this.rawRecords[3].push(element.interestRate)
+      this.rawRecords[4].push(element.fullBullet)
+      this.rawRecords[5].push(element.bullet)
+      //this.rawRecords[9].push(element.annuity)
+      this.rawRecords[6].push(element.devLoan)
+      this.rawRecords[7].push(element.bussLoan)
+      this.rawRecords[8].push(element.bridgeLoan)
+      this.rawRecords[9].push(element.land)
+      this.rawRecords[10].push(element.residential)
+      //this.rawRecords[15].push(element.commercial)
+      //this.rawRecords[16].push(element.other)
+      this.rawRecords[11].push(typeof element.ltv == "string" ? +(element.ltv.replace(',','.')) : element.ltv)
+      this.rawRecords[12].push(element.period)
+      this.rawRecords[13].push(element.collateralValue)
+      this.rawRecords[14].push(element.stage)
+      this.rawRecords[15].push(element.suretyship) //mortgage fundedAmount portugal
+      this.rawRecords[16].push(element.ref)
 
 
       this.test.push(element.status)
@@ -65,12 +65,11 @@ export class MlEngineService {
 
   compute(point: any, k: number) {
     const minmaxScaler = new MinMaxScaler({ featureRange: [0, 1] });
-    for (let i = 0; i < 23; i++) {
+    for (let i = 0; i < this.rawRecords.length; i++) {
       this.rawRecords[i].push(point[i])
     }
     const scaledRecords = [];
     this.rawRecords.forEach(element => {
-      console.log(element)
       scaledRecords.push(minmaxScaler.fit_transform(element))
     })
     const X = scaledRecords[0].map((_, colIndex) => scaledRecords.map(row => row[colIndex]));
@@ -98,6 +97,8 @@ export class MlEngineService {
 
   generateDistanceMap(point) {
 
+    console.log(point)
+    
     const map = [];
     let maxDistanceInMap;
 
@@ -156,7 +157,6 @@ export class MlEngineService {
       voteCounts,
       votes
     }
-    console.log(this.result)
     return this.result
   }
 

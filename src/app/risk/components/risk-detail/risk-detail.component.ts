@@ -26,10 +26,10 @@ export class RiskDetailComponent implements OnInit {
   ngOnInit() {
     this.mlEngineService.catchRecordsFromFile();
     this.route.queryParams.subscribe(params => {
-      this.result = this.mlEngineService.compute([+params['estonia'], +params['finland'], +params['lithuania'],
-      +params['germany'], +params['latvia'], +params['spain'], +params['interestRate'],
-      +params['fullBullet'], +params['bullet'], +params['annuity'], +params['devLoan'], +params['bussLoan'],
-      +params['bridgeLoan'], +params['land'], +params['residential'], +params['commercial'], +params['other'],
+      this.result = this.mlEngineService.compute([+params['estonia'], /*+params['finland'],*/ +params['lithuania'],
+      /*+params['germany'],*/ +params['latvia'], /*+params['spain'],*/ +params['interestRate'],
+      +params['fullBullet'], +params['bullet'],/* +params['annuity'],*/ +params['devLoan'], +params['bussLoan'],
+      +params['bridgeLoan'], +params['land'], +params['residential'], /*+params['commercial'], +params['other'],*/
       +params['ltv'], +params['period'], +params['colValue'],
       +params['stage'], +params['surety'], +params['ref']], this.k);
 
