@@ -6,6 +6,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
 import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { FormsModule } from '@angular/forms';
 
 @NgModule({
@@ -17,6 +18,7 @@ import { FormsModule } from '@angular/forms';
         MatInputModule,
         MatSelectModule,
         MatFormFieldModule,
+        MatProgressSpinnerModule,
         FormsModule
     ],
     declarations: [],
@@ -28,6 +30,7 @@ import { FormsModule } from '@angular/forms';
         MatInputModule,
         MatSelectModule,
         MatFormFieldModule,
+        MatProgressSpinnerModule,
         FormsModule
     ] 
 })

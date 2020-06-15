@@ -8,31 +8,52 @@ body {
     margin: 0;
     font-family: Roboto, "Helvetica Neue", sans-serif;
     background-image: url('./assets/images/USA-wallpapers-hd8.jpg');
-    background-size: cover;}
+    background-size: cover;
+}
 
-#dash .mat-card-header .mat-card-title, #form .mat-card-header .mat-card-title, #risk .mat-card-header .mat-card-title{
+#dash .mat-card-header .mat-card-title, #form .mat-card-header .mat-card-title, #risk .mat-card-header .mat-card-title {
     font-size: 30px
 }
 
-#dash .mat-card-subtitle, #form .mat-card-subtitle{
+#dash .mat-card-subtitle, #form .mat-card-subtitle {
     font-size: 20px
 }
 
-#dash .mat-card-content{
+#dash .mat-card-content {
     margin: 0 20px;
 }
 
-#dash .mat-card-actions, #form .mat-card-actions, #risk .mat-card-actions{
-    text-align:center;
-    margin:30px auto;
+#dash .mat-card-actions, #form .mat-card-actions, #risk .mat-card-actions {
+    text-align: center;
+    margin: 30px auto;
 }
 
-#form .mat-card-content{
+#form .mat-card-content {
     margin: 20px auto;
     display: table;
 }
 
-#form-error .mat-card-subtitle{
+#form-error .mat-card-subtitle {
     color: white;
-    font-size:18px;
+    font-size: 18px;
+}
+
+#risk .mat-progress-spinner {
+    margin: auto
+}
+
+#rating .mat-card-header .mat-card-title {
+    font-size: 60px;
+    color: white;
+    margin-top: 12px;
+}
+
+#rating .mat-card-header-text {
+    margin: auto
+}
+
+#rating.mat-card {
+    width: min-content;
+    margin: auto;
+    background-color: black;
 }

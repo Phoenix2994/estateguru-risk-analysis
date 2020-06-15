@@ -39,6 +39,7 @@ export class FormComponent implements OnInit {
   ltv: number
   period: number
   fundedAmount: number
+  results = [];
   colValue: number
 
   flagError = false
@@ -49,6 +50,8 @@ export class FormComponent implements OnInit {
   flagCol = false
 
   ngOnInit() {
+    this.mlEngineService.catchFullRecordsFromFile()
+    this.mlEngineService.catchDefaultRecordsFromFile()
   }
 
   evaluateInfo() {
@@ -89,4 +92,226 @@ export class FormComponent implements OnInit {
 
   }
 
+  go() {
+    this.router.navigate(['/risk/detail'], {
+      queryParams: {
+        estonia: 0, finland: 0,
+        lithuania: 0, germany: 0,
+        latvia: 1, spain: 0, portugal: 0, interestRate: 13,
+        fullBullet: 1, bullet: 0, annuity: 0,
+        devLoan: 0, bussLoan: 1, bridgeLoan: 0,
+        land: 0, residential: 0, commercial: 1,
+        other: 0,
+        ltv: 65, period: 12, colValue: 450000, ref: 1,
+        stage: 0, surety: 0
+      }, skipLocationChange: true
+    })
+  }
+
+  eval() {
+    let values = []
+    let thresh = 0.5
+    let threshes = []
+    let rate = 0
+    let failss = 0
+    let ranks = []
+    let defFails = []
+
+    let ops = this.results.length
+    let computed = 0
+    this.results.sort((a, b) => b.repaid - a.repaid);
+    this.results.forEach(element => {
+      ranks.push(element)
+    });
+
+    while (computed < ops) {
+      for (let element of ranks) {
+        if (element.outcome == false) {
+          failss += 1
+        }
+      }
+      rate = (failss / ranks.length) * 100
+      console.log(thresh)
+      if (rate > thresh) {
+        ranks.pop()
+        if (ranks.length == 0) {
+          ranks = []
+          this.results.forEach(element => {
+            ranks.push(element)
+          });
+          thresh += 0.5
+        }
+      } else {
+        console.log(ranks[ranks.length - 1].repaid)
+        values.push(ranks[ranks.length - 1].repaid)
+        defFails.push(failss)
+        defFails.push(ranks.length)
+        threshes.push(thresh)
+        console.log(failss)
+        computed = ranks.length
+        //computed += ranks.length
+        //this.results.splice(0, ranks.length)
+        ranks = []
+        this.results.forEach(element => {
+          ranks.push(element)
+        });
+        thresh += 0.5
+      }
+      failss = 0
+    }
+    console.log(values)
+    console.log(threshes)
+    console.log(defFails)
+
+
+  }
+  
+  test(){
+    let results = this.mlEngineService.lol(100);
+    let aPlus = 0
+    let aaMinus = 0
+    let aa = 0
+    let aaPlus = 0
+    let fails = 0
+    let count = 0
+    results.forEach(element => {
+      let repaid1 = 0
+      let defau = 0
+      let recovery = 0
+      element.votes.forEach(vote => {
+        if (vote.label == 1) {
+          repaid1 += Math.exp(-vote.distance)
+        }/* else if (vote.label == 2) {
+          // TODO
+          
+          repaid1 += 0.93 / (vote.distance)
+          this.default += 0.07 * 0.52 / (vote.distance)
+          this.recovery += 0.07 * 0.48 / (vote.distance)
+        } */
+        else if (vote.label == 3) {
+          recovery += Math.exp(-vote.distance)
+        } else if (vote.label == 4) {
+
+          defau += Math.exp(-vote.distance)
+        } else {
+          defau += Math.exp(-vote.distance)
+        }
+      })
+
+      let repaid = repaid1
+      let defa = defau
+      let rec = recovery
+
+      repaid1 = +((repaid * 100 / (repaid + rec + defa)).toFixed(2))
+      recovery = +((rec * 100 / (repaid + rec + defa)).toFixed(2))
+      defau = +((defa * 100 / (repaid + rec + defa)).toFixed(2))
+
+      /*
+      let rating = 'C'
+      rating = 'C'
+      if (repaid1 > 70) {
+        rating = 'CC'
+      }
+      if (repaid1 > 71.5) {
+        rating = 'CCC-'
+      }
+      if (repaid1 > 73) {
+        rating = 'CCC'
+      }
+      if (repaid1 > 74.5) {
+        rating = 'CCC+'
+      } if (repaid1 > 76) {
+        rating = 'B-'
+        if (element.labelReal != 1) {
+          console.log('Allarmeeeeeeee')
+          fails +=1
+        }
+        aPlus += 1
+      }
+      if (repaid1 > 77.5) {
+        rating = 'B'
+     
+      }
+      if (repaid1 > 79) {
+        rating = 'B+'
+      
+      } if (repaid1 > 80.5) {
+        rating = 'BB-'
+       
+      }
+      if (repaid1 > 82) {
+        rating = 'BB'
+      
+      }
+      if (repaid1 > 83.5) {
+        rating = 'BB+'
+     
+      } if (repaid1 > 85) {
+        rating = 'BBB-'
+      }
+      if (repaid1 > 86.5) {
+        rating = 'BBB'
+       
+      }
+      if (repaid1 > 88) {
+        rating = 'BBB+'
+        
+      }
+      if (repaid1 > 89.5) {
+        rating = 'A-'
+   
+
+      }
+      if (repaid1 > 91) {
+        rating = 'A'
+      
+
+      }
+      if (repaid1 > 92.5) {
+        rating = 'A+'
+        if (element.labelReal != 1) {
+        }
+      }
+      if (repaid1 > 94) {
+        rating = 'AA-'
+        aaMinus += 1
+
+        if (element.labelReal != 1) {
+        }
+      }
+      if (repaid1 > 95.5) {
+        rating = 'AA'
+        aa += 1
+
+        if (element.labelReal != 1) {
+        }
+      } if (repaid1 > 97) {
+        rating = 'AA+'
+        aaPlus += 1
+
+        if (element.labelReal != 1) {
+        }
+      }
+      if (repaid1 > 98.5) {
+        rating = 'AAA'
+        if (element.labelReal != 1) {
+        }
+      }
+      console.log(rating, element)*/
+      element.repaid = repaid1
+      if (element.labelReal != 1) {
+        element.outcome = false
+        count += 1
+      }
+
+    })
+    results.forEach(element => {
+      this.results.push(element)
+    });
+  }
+
 }
+
+
+
+

@@ -4,6 +4,13 @@
             <mat-card-title>Risk Analysis</mat-card-title>
         </mat-card-header>
         <mat-card-content>
+            <mat-spinner *ngIf="loading"></mat-spinner>
+            <mat-card id="rating" *ngIf="!loading">
+                <mat-card-header>
+                    <mat-card-title>{{rating}}</mat-card-title>
+                </mat-card-header>
+            </mat-card>
+            <!--
             <div class="results">
                 <p><strong>Default</strong></p>
                 <p>{{default}} %</p>
@@ -16,7 +23,7 @@
             <div class="results">
                 <p><strong>Repaid</strong></p>
                 <p>{{repaid}} %</p>
-            </div>
+            </div>-->
             <br>
         </mat-card-content>
         <mat-card-actions>
