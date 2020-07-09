@@ -29,9 +29,9 @@ export class RiskDetailComponent implements OnInit {
     this.loading = true
     this.route.queryParams.subscribe(params => {
       this.result = this.mlEngineService.compute([+params['estonia'], /*+params['finland'],*/ +params['lithuania'],
-      /*+params['germany'],*/ +params['latvia'], /*+params['spain'],*/ +params['interestRate'],
+      /*+params['germany'], +params['latvia'], /*+params['spain'],*/ +params['interestRate'],
       +params['fullBullet'], +params['bullet'],/* +params['annuity'],*/ +params['devLoan'], +params['bussLoan'],
-      +params['bridgeLoan'], +params['land'], +params['residential'], /*+params['commercial'], +params['other'],*/
+      +params['bridgeLoan'], +params['land'], +params['residential'], +params['commercial'], /*+params['other'],*/
       +params['ltv'], +params['period'], +params['colValue'],
       +params['stage'], +params['surety'], +params['ref']], this.k);
 
@@ -75,49 +75,49 @@ export class RiskDetailComponent implements OnInit {
       this.default = +((defa * 100 / (repaid + rec + defa)).toFixed(2))
 
       this.rating = 'CCC+'
-      if (this.repaid > 72.15) {
+      if (this.repaid > 63.53) {
         this.rating = 'B-'
       }
-      if (this.repaid > 76.52) {
+      if (this.repaid > 73.83) {
         this.rating = 'B'
       }
-      if (this.repaid > 80.07) {
+      if (this.repaid > 77.46) {
         this.rating = 'B+'
-      } if (this.repaid > 83.31) {
+      } if (this.repaid > 82.82) {
         this.rating = 'BB-'
       }
-      if (this.repaid > 84.89) {
+      if (this.repaid > 85.41) {
         this.rating = 'BB'
       }
-      if (this.repaid > 86.02) {
+      if (this.repaid > 87.51) {
         this.rating = 'BB+'
-      } if (this.repaid > 86.56) {
+      } if (this.repaid > 87.85) {
         this.rating = 'BBB-'
       }
-      if (this.repaid > 87.4) {
+      if (this.repaid > 88.68) {
         this.rating = 'BBB'
       }
-      if (this.repaid > 88.18) {
+      if (this.repaid > 89.00) {
         this.rating = 'BBB+'
       }
-      if (this.repaid > 88.5) {
+      if (this.repaid > 89.37) {
         this.rating = 'A-'
       }
-      if (this.repaid > 89.52) {
+      if (this.repaid > 89.9) {
         this.rating = 'A'
       }
-      if (this.repaid > 90.34) {
+      if (this.repaid > 91.95) {
         this.rating = 'A+'
       }
-      if (this.repaid > 92.07) {
+      if (this.repaid > 93.48) {
         this.rating = 'AA-'
       }
-      if (this.repaid > 92.71) {
+      if (this.repaid > 95.54) {
         this.rating = 'AA'
-      } if (this.repaid > 95.79) {
+      } if (this.repaid > 97.96) {
         this.rating = 'AA+'
       }
-      if (this.repaid > 97.56) {
+      if (this.repaid > 98.56) {
         this.rating = 'AAA'
       }
       this.loading = false

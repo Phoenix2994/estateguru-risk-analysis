@@ -52,6 +52,8 @@ export class FormComponent implements OnInit {
   ngOnInit() {
     this.mlEngineService.catchFullRecordsFromFile()
     this.mlEngineService.catchDefaultRecordsFromFile()
+    //this.test()
+    //this.eval()
   }
 
   evaluateInfo() {
@@ -162,18 +164,10 @@ export class FormComponent implements OnInit {
     console.log(values)
     console.log(threshes)
     console.log(defFails)
-
-
   }
   
   test(){
     let results = this.mlEngineService.lol(100);
-    let aPlus = 0
-    let aaMinus = 0
-    let aa = 0
-    let aaPlus = 0
-    let fails = 0
-    let count = 0
     results.forEach(element => {
       let repaid1 = 0
       let defau = 0
@@ -191,7 +185,6 @@ export class FormComponent implements OnInit {
         else if (vote.label == 3) {
           recovery += Math.exp(-vote.distance)
         } else if (vote.label == 4) {
-
           defau += Math.exp(-vote.distance)
         } else {
           defau += Math.exp(-vote.distance)
@@ -206,102 +199,9 @@ export class FormComponent implements OnInit {
       recovery = +((rec * 100 / (repaid + rec + defa)).toFixed(2))
       defau = +((defa * 100 / (repaid + rec + defa)).toFixed(2))
 
-      /*
-      let rating = 'C'
-      rating = 'C'
-      if (repaid1 > 70) {
-        rating = 'CC'
-      }
-      if (repaid1 > 71.5) {
-        rating = 'CCC-'
-      }
-      if (repaid1 > 73) {
-        rating = 'CCC'
-      }
-      if (repaid1 > 74.5) {
-        rating = 'CCC+'
-      } if (repaid1 > 76) {
-        rating = 'B-'
-        if (element.labelReal != 1) {
-          console.log('Allarmeeeeeeee')
-          fails +=1
-        }
-        aPlus += 1
-      }
-      if (repaid1 > 77.5) {
-        rating = 'B'
-     
-      }
-      if (repaid1 > 79) {
-        rating = 'B+'
-      
-      } if (repaid1 > 80.5) {
-        rating = 'BB-'
-       
-      }
-      if (repaid1 > 82) {
-        rating = 'BB'
-      
-      }
-      if (repaid1 > 83.5) {
-        rating = 'BB+'
-     
-      } if (repaid1 > 85) {
-        rating = 'BBB-'
-      }
-      if (repaid1 > 86.5) {
-        rating = 'BBB'
-       
-      }
-      if (repaid1 > 88) {
-        rating = 'BBB+'
-        
-      }
-      if (repaid1 > 89.5) {
-        rating = 'A-'
-   
-
-      }
-      if (repaid1 > 91) {
-        rating = 'A'
-      
-
-      }
-      if (repaid1 > 92.5) {
-        rating = 'A+'
-        if (element.labelReal != 1) {
-        }
-      }
-      if (repaid1 > 94) {
-        rating = 'AA-'
-        aaMinus += 1
-
-        if (element.labelReal != 1) {
-        }
-      }
-      if (repaid1 > 95.5) {
-        rating = 'AA'
-        aa += 1
-
-        if (element.labelReal != 1) {
-        }
-      } if (repaid1 > 97) {
-        rating = 'AA+'
-        aaPlus += 1
-
-        if (element.labelReal != 1) {
-        }
-      }
-      if (repaid1 > 98.5) {
-        rating = 'AAA'
-        if (element.labelReal != 1) {
-        }
-      }
-      console.log(rating, element)*/
       element.repaid = repaid1
       if (element.labelReal != 1) {
         element.outcome = false
-        count += 1
       }
 
     })

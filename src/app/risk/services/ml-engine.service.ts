@@ -19,6 +19,10 @@ export class MlEngineService {
   labels = []
   defaultLabels = []
 
+  weights = [0.939836, 0.940320, 0.971856, 0.941671, 0.941805, 0.944779,
+    0.953611, 0.949692, 0.946589, 0.949455, 0.940456, 0.946743, 0.960056,
+    1, 0.961282, 0.940167, 0.939906]
+
   knn: any;
 
   data: any;
@@ -36,18 +40,18 @@ export class MlEngineService {
       //this.rawRecords[1].push(element.finland)
       this.rawRecords[1].push(element.lithuania)
       //this.rawRecords[3].push(element.germany)
-      this.rawRecords[2].push(element.latvia)
+      //this.rawDefaultRecords[2].push(element.latvia)
       //this.rawRecords[5].push(element.spain)
-      this.rawRecords[3].push(element.interestRate)
-      this.rawRecords[4].push(element.fullBullet)
-      this.rawRecords[5].push(element.bullet)
+      this.rawRecords[2].push(element.interestRate)
+      this.rawRecords[3].push(element.fullBullet)
+      this.rawRecords[4].push(element.bullet)
       //this.rawRecords[9].push(element.annuity)
-      this.rawRecords[6].push(element.devLoan)
-      this.rawRecords[7].push(element.bussLoan)
-      this.rawRecords[8].push(element.bridgeLoan)
-      this.rawRecords[9].push(element.land)
-      this.rawRecords[10].push(element.residential)
-      //this.rawRecords[15].push(element.commercial)
+      this.rawRecords[5].push(element.devLoan)
+      this.rawRecords[6].push(element.bussLoan)
+      this.rawRecords[7].push(element.bridgeLoan)
+      this.rawRecords[8].push(element.land)
+      this.rawRecords[9].push(element.residential)
+      this.rawRecords[10].push(element.commercial)
       //this.rawRecords[16].push(element.other)
       this.rawRecords[11].push(typeof element.ltv == "string" ? +(element.ltv.replace(',', '.')) : element.ltv)
       this.rawRecords[12].push(element.period)
@@ -74,18 +78,18 @@ export class MlEngineService {
       //this.rawRecords[1].push(element.finland)
       this.rawDefaultRecords[1].push(element.lithuania)
       //this.rawRecords[3].push(element.germany)
-      this.rawDefaultRecords[2].push(element.latvia)
+      //this.rawDefaultRecords[2].push(element.latvia)
       //this.rawRecords[5].push(element.spain)
-      this.rawDefaultRecords[3].push(element.interestRate)
-      this.rawDefaultRecords[4].push(element.fullBullet)
-      this.rawDefaultRecords[5].push(element.bullet)
+      this.rawDefaultRecords[2].push(element.interestRate)
+      this.rawDefaultRecords[3].push(element.fullBullet)
+      this.rawDefaultRecords[4].push(element.bullet)
       //this.rawRecords[9].push(element.annuity)
-      this.rawDefaultRecords[6].push(element.devLoan)
-      this.rawDefaultRecords[7].push(element.bussLoan)
-      this.rawDefaultRecords[8].push(element.bridgeLoan)
-      this.rawDefaultRecords[9].push(element.land)
-      this.rawDefaultRecords[10].push(element.residential)
-      //this.rawRecords[15].push(element.commercial)
+      this.rawDefaultRecords[5].push(element.devLoan)
+      this.rawDefaultRecords[6].push(element.bussLoan)
+      this.rawDefaultRecords[7].push(element.bridgeLoan)
+      this.rawDefaultRecords[8].push(element.land)
+      this.rawDefaultRecords[9].push(element.residential)
+      this.rawDefaultRecords[10].push(element.commercial)
       //this.rawRecords[16].push(element.other)
       this.rawDefaultRecords[11].push(typeof element.ltv == "string" ? +(element.ltv.replace(',', '.')) : element.ltv)
       this.rawDefaultRecords[12].push(element.period)
@@ -179,6 +183,13 @@ export class MlEngineService {
     );
   }
 
+  weightedDistance(a, b) {
+    return Math.sqrt(
+      a.map((aPoint, i) => b[i] - aPoint)
+        .reduce((sumOfSquares, diff, i) => sumOfSquares + (diff * diff) * (this.weights[i] ^ 2), 0)
+    );
+  }
+
   generateDistanceMap(point, data, labels, k) {
 
     const map = [];
@@ -187,7 +198,7 @@ export class MlEngineService {
     for (let index = 0, len = data.length; index < len; index++) {
       const otherPoint = data[index];
       const otherPointLabel = labels[index];
-      const thisDistance = this.distance(point, otherPoint);
+      const thisDistance = this.weightedDistance(point, otherPoint);
 
       /**
        * Keep at most k items in the map.
