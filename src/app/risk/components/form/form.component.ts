@@ -150,9 +150,9 @@ export class FormComponent implements OnInit {
         defFails.push(ranks.length)
         threshes.push(thresh)
         console.log(failss)
-        computed = ranks.length
-        //computed += ranks.length
-        //this.results.splice(0, ranks.length)
+        //computed = ranks.length next 2 rows
+        computed += ranks.length
+        this.results.splice(0, ranks.length)
         ranks = []
         this.results.forEach(element => {
           ranks.push(element)
@@ -167,7 +167,7 @@ export class FormComponent implements OnInit {
   }
   
   test(){
-    let results = this.mlEngineService.lol(100);
+    let results = this.mlEngineService.lol(100, false);
     results.forEach(element => {
       let repaid1 = 0
       let defau = 0

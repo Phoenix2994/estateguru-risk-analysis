@@ -23,6 +23,12 @@ export class MlEngineService {
     0.953611, 0.949692, 0.946589, 0.949455, 0.940456, 0.946743, 0.960056,
     1, 0.961282, 0.940167, 0.939906]
 
+  weightsVar = [0.939836 / 0.454015, 0.940320 / 0.349577, 0.971856 / 0.137839, 0.941671 / 0.493484,
+  0.941805 / 0.496239, 0.944779 / 0.428592,
+  0.953611 / 0.484445, 0.949692 / 0.486437, 0.946589 / 0.429391, 0.949455 / 0.493921,
+  0.940456 / 0.368911, 0.946743 / 0.189877, 0.960056 / 0.079886,
+  1 / 0.122438, 0.961282 / 0.499934, 0.940167 / 0.415918, 0.939906 / 0.378389]
+
   knn: any;
 
   data: any;
@@ -105,7 +111,7 @@ export class MlEngineService {
   }
 
 
-  compute(point: any, k: number) {
+  compute(point: any, k: number, flagVar: boolean) {
     const minmaxScaler = new MinMaxScaler({ featureRange: [0, 1] });
     for (let i = 0; i < this.rawRecords.length; i++) {
       this.rawRecords[i].push(point[i])
@@ -117,7 +123,7 @@ export class MlEngineService {
     const X = scaledRecords[0].map((_, colIndex) => scaledRecords.map(row => row[colIndex]));
     point = X.pop()
     this.data = X
-    const map = this.generateDistanceMap(point, X, this.labels, k);
+    const map = this.generateDistanceMap(point, X, this.labels, k, flagVar);
     const votes = map.slice(0, k);
     const voteCounts = votes
       // Reduces into an object like {label: voteCount}
@@ -135,7 +141,7 @@ export class MlEngineService {
     return result
   }
 
-  computeDefault(point: any, k: number) {
+  computeDefault(point: any, k: number, flagVar: boolean) {
     const minmaxScaler = new MinMaxScaler({ featureRange: [0, 1] });
     for (let i = 0; i < this.rawDefaultRecords.length; i++) {
       this.rawDefaultRecords[i].push(point[i])
@@ -151,7 +157,7 @@ export class MlEngineService {
 
     point = X.pop()
 
-    const map = this.generateDistanceMap(point, X, this.defaultLabels, k);
+    const map = this.generateDistanceMap(point, X, this.defaultLabels, k, flagVar);
     const votes = map.slice(0, k);
     const voteCounts = votes
       // Reduces into an object like {label: voteCount}
@@ -183,14 +189,17 @@ export class MlEngineService {
     );
   }
 
-  weightedDistance(a, b) {
-    return Math.sqrt(
+  weightedDistance(a, b, flagVariance: boolean) {
+    return flagVariance ? Math.sqrt(
+      a.map((aPoint, i) => b[i] - aPoint)
+        .reduce((sumOfSquares, diff, i) => sumOfSquares + (diff * diff) * (this.weightsVar[i] ^ 2), 0)
+    ) : Math.sqrt(
       a.map((aPoint, i) => b[i] - aPoint)
         .reduce((sumOfSquares, diff, i) => sumOfSquares + (diff * diff) * (this.weights[i] ^ 2), 0)
-    );
+    )
   }
 
-  generateDistanceMap(point, data, labels, k) {
+  generateDistanceMap(point, data, labels, k, flagVar: boolean) {
 
     const map = [];
     let maxDistanceInMap;
@@ -198,7 +207,7 @@ export class MlEngineService {
     for (let index = 0, len = data.length; index < len; index++) {
       const otherPoint = data[index];
       const otherPointLabel = labels[index];
-      const thisDistance = this.weightedDistance(point, otherPoint);
+      const thisDistance = this.weightedDistance(point, otherPoint, flagVar);
 
       /**
        * Keep at most k items in the map.
@@ -229,7 +238,7 @@ export class MlEngineService {
     return map;
   }
 
-  lol(k) {
+  lol(k, flagVar: boolean) {
     let results = []
     let labels2 = []
     this.labels.forEach(element => {
@@ -254,7 +263,7 @@ export class MlEngineService {
       let label = labels2.splice(p, 1)
       label = label[0]
 
-      const map = this.generateDistanceMap(point, X, this.labels, k);
+      const map = this.generateDistanceMap(point, X, this.labels, k, flagVar);
       const votes = map.slice(0, k);
       const voteCounts = votes
         // Reduces into an object like {label: voteCount}

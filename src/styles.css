@@ -42,18 +42,24 @@ body {
     margin: auto
 }
 
-#rating .mat-card-header .mat-card-title {
+#risk .mat-card-content {
+    text-align: center;
+    color: white;
+}
+
+#rating .mat-card-header .mat-card-title, #ratingVar .mat-card-header .mat-card-title {
     font-size: 60px;
     color: white;
     margin-top: 12px;
 }
 
-#rating .mat-card-header-text {
+#rating .mat-card-header-text, #ratingVar .mat-card-header-text {
     margin: auto
 }
 
-#rating.mat-card {
-    width: min-content;
-    margin: auto;
+#rating.mat-card, #ratingVar.mat-card {
+    display: inline-block;
+    width: max-content;
+    margin: 30px;
     background-color: black;
 }
