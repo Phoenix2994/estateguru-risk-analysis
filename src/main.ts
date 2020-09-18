@@ -11,4 +11,4 @@ if (environment.production) {
 platformBrowserDynamic().bootstrapModule(AppModule)
   .catch(err => console.error(err));
 
-  console.log('risk analysis v.0.0.9 july')
+  console.log('risk analysis v.0.0.10 september')

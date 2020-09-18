@@ -34,8 +34,8 @@ export class RiskDetailComponent implements OnInit {
     this.mlEngineService.catchFullRecordsFromFile()
     this.mlEngineService.catchDefaultRecordsFromFile()
     this.ratingVar = this.compute(true)
-  
-    
+
+
     this.loading = false
 
   }
@@ -94,96 +94,69 @@ export class RiskDetailComponent implements OnInit {
       this.default = +((defa * 100 / (repaid + rec + defa)).toFixed(2))
 
       if (flagVar) {
-        rating = 'CCC+'
-        if (this.repaid > 69.54) {
-          rating = 'B-'
-        } if (this.repaid > 78.26) {
-          rating = 'B'
-        }
-        if (this.repaid > 80.23) {
-          rating = 'B+'
-        } if (this.repaid > 82.85) {
-          rating = 'BB-'
-        }
-        if (this.repaid > 86.5) {
-          rating = 'BB'
-        }
-        if (this.repaid > 88.81) {
-          rating = 'BB+'
-        } if (this.repaid > 89.37) {
-          rating = 'BBB-'
-        }
-        if (this.repaid > 90.04) {
-          rating = 'BBB'
-        }
-        if (this.repaid > 90.05) {
+        rating = 'BBB'
+        if (this.repaid > 74.76) {
           rating = 'BBB+'
         }
-        if (this.repaid > 90.55) {
+        if (this.repaid > 79.91) {
           rating = 'A-'
         }
-        if (this.repaid > 91.19) {
+        if (this.repaid > 85.8) {
           rating = 'A'
         }
-        if (this.repaid > 92.37) {
+        if (this.repaid > 89.49) {
           rating = 'A+'
         }
-        if (this.repaid > 92.79) {
+        if (this.repaid > 90.16) {
           rating = 'AA-'
         }
-        if (this.repaid > 96.87) {
+        if (this.repaid > 92.91) {
           rating = 'AA'
-        } if (this.repaid > 97.68) {
+        } if (this.repaid > 94.52) {
           rating = 'AA+'
         }
-        if (this.repaid > 98.26) {
+        if (this.repaid > 96.72) {
           rating = 'AAA'
         }
       } else {
-        rating = 'CCC+'
-        if (this.repaid > 63.53) {
-          rating = 'B-'
-        }
-        if (this.repaid > 73.83) {
-          rating = 'B'
-        }
-        if (this.repaid > 77.46) {
+        rating = 'B'
+        if (this.repaid > 62.36) {
           rating = 'B+'
-        } if (this.repaid > 82.82) {
+        } if (this.repaid > 74.61) {
           rating = 'BB-'
         }
-        if (this.repaid > 85.41) {
+        if (this.repaid > 80.22) {
           rating = 'BB'
         }
-        if (this.repaid > 87.51) {
+        if (this.repaid > 84.24) {
           rating = 'BB+'
-        } if (this.repaid > 87.85) {
+        } if (this.repaid > 85.51) {
           rating = 'BBB-'
         }
-        if (this.repaid > 88.68) {
+        if (this.repaid > 87.73) {
           rating = 'BBB'
         }
-        if (this.repaid > 89.00) {
+        if (this.repaid > 88.68) {
           rating = 'BBB+'
         }
-        if (this.repaid > 89.37) {
+        if (this.repaid > 89.3) {
           rating = 'A-'
         }
-        if (this.repaid > 89.9) {
+        if (this.repaid > 91.46) {
           rating = 'A'
         }
-        if (this.repaid > 91.95) {
+        if (this.repaid > 93.08) {
           rating = 'A+'
         }
-        if (this.repaid > 93.48) {
+        if (this.repaid > 94.96) {
           rating = 'AA-'
         }
-        if (this.repaid > 95.54) {
+        if (this.repaid > 95.52) {
           rating = 'AA'
-        } if (this.repaid > 97.96) {
+        } if (this.repaid > 96.49) {
           rating = 'AA+'
         }
-        if (this.repaid > 98.56) {
+        if (this.repaid > 98.27) {
           rating = 'AAA'
         }
       }
